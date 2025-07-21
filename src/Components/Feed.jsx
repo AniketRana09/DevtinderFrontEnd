@@ -29,8 +29,7 @@ const Feed = () => {
     return <h1 className="flex justify-center my-10">No New User found</h1>;
   }
   return (
-    <div className="flex justify-center">
-      <h2 className="font-semibold text-4xl pt-16">Explore :</h2>
+    <div className="flex w-screen justify-center">
       <UserCard user={feed[0]} />
     </div>
   );

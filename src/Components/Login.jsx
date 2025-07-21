@@ -50,7 +50,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
-          className="btn btn-neutral mt-4 p-4  w-3/4 mx-auto"
+          className="btn btn-neutral mt-4 p-4  w-3/4 mx-10"
           onClick={handleLogin}
         >
           Login

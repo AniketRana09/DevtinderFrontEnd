@@ -1,7 +1,39 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { BASE_URL } from "../Utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { addFeed } from "../Utils/feedSlice";
+import UserCard from "./UserCard";
 
 const Feed = () => {
-  return <div>Feed</div>;
+  const feed = useSelector((store) => store.feed);
+  const dispatch = useDispatch();
+  const getFeed = async () => {
+    if (feed) return;
+    try {
+      const res = await axios.get(BASE_URL + "/feed", {
+        withCredentials: true,
+      });
+      console.log(res.data.info);
+      dispatch(addFeed(res.data.info));
+    } catch (err) {
+      console.log("Error :" + err.message);
+    }
+  };
+  useEffect(() => {
+    getFeed();
+  }, []);
+  if (!feed) return;
+
+  if (feed.length <= 0) {
+    return <h1 className="flex justify-center my-10">No New User found</h1>;
+  }
+  return (
+    <div className="flex justify-center">
+      <h2 className="font-semibold text-4xl pt-16">Explore :</h2>
+      <UserCard user={feed[0]} />
+    </div>
+  );
 };
 
 export default Feed;

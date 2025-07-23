@@ -8,15 +8,18 @@ import { addUser } from "../Utils/userSlice";
 const EditProfile = ({ user }) => {
   const [firstName, setfirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
+  const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender || "");
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [about, setAbout] = useState(user.about);
-  const [skills, setSkills] = useState(user.skills);
+  const [about, setAbout] = useState(user.about || "");
+  const [skills, setSkills] = useState(user.skills || "");
+  const [error, setError] = useState("");
+  const [showToast, setShowTest] = useState(false);
   const dispatch = useDispatch();
   const saveProfile = async () => {
     try {
-      const res = await axios.patch(
+      setError("");
+      const res = await axios.put(
         BASE_URL + "/profile/edit",
         {
           firstName,
@@ -25,7 +28,11 @@ const EditProfile = ({ user }) => {
           gender,
           photoUrl,
           about,
-          skills,
+          skills: Array.isArray(skills)
+            ? skills
+            : typeof skills === "string"
+            ? skills.split(",")
+            : [],
         },
         {
           withCredentials: true,
@@ -33,8 +40,14 @@ const EditProfile = ({ user }) => {
       );
       console.log(res.data.data);
       dispatch(addUser(res?.data?.data));
+      setShowTest(true);
+
+      setTimeout(() => {
+        setShowTest(false);
+      }, 3000);
     } catch (err) {
-      console.log("Error: " + err.message);
+      setError(err.response.data);
+      console.log(err);
     }
   };
   return (
@@ -63,11 +76,11 @@ const EditProfile = ({ user }) => {
           <label className="label" />
           Age:
           <input
-            type="text"
+            type="number"
             value={age}
             className="input p-4 my-2  w-full"
             placeholder="age"
-            onChange={(e) => setAge(e.target.value)}
+            onChange={(e) => setAge(Number(e.target.value))}
           />
           <label className="label" />
           Gender:
@@ -105,6 +118,7 @@ const EditProfile = ({ user }) => {
             placeholder="skills"
             onChange={(e) => setSkills(e.target.value)}
           />
+          <p className=" text-red-500">{error}</p>
           <button
             className="btn btn-neutral mt-4 p-4  w-3/4 mx-10"
             onClick={saveProfile}
@@ -112,12 +126,19 @@ const EditProfile = ({ user }) => {
             Save Profile
           </button>
         </div>
-        <div className="mx-10">
-          <UserCard
-            user={{ firstName, lastName, age, gender, about, photoUrl, skills }}
-          />
-        </div>
       </div>
+      <div className="mx-10">
+        <UserCard
+          user={{ firstName, lastName, age, gender, about, photoUrl, skills }}
+        />
+      </div>
+      {showToast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span>Profile saved successfully.</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

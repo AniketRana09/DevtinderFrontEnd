@@ -16,8 +16,9 @@ const UserCard = ({ user }) => {
             {user.firstName} {user.lastName}
           </h2>
           <p>Age:{user.age}</p>
+          <p>Gender:{user.gender}</p>
           <p>About: {user.about}</p>
-          <p>Skills: {user.skills.join(" ,")}</p>
+          <p>Skills: {user.skills}</p>
           <div className="card-actions justify-center">
             <button className="btn bg-pink-400 py-1 rounded-lg">
               Interested

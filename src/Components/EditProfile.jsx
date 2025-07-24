@@ -51,9 +51,9 @@ const EditProfile = ({ user }) => {
     }
   };
   return (
-    <div className="flex items-center justify-center  h-screen  ">
-      <div className="flex justify-center mx-5 pt-16">
-        <div className="w-1/2  sm:w-96  md:w-[500px] max-w-md border-purple-600 rounded-box  border p-8 mt-16 mb-24 ">
+    <div className="flex flex-col md:flex-row items-center justify-center  h-screen pt-20">
+      <div className="flex  justify-center mx-5 md:pt-20 pt-190">
+        <div className="md:w-3/4 w-full sm:w-96   max-w-md border-purple-600 rounded-box  border p-8  md:mt-16 md:mb-24 ">
           <h2 className="text-center md:text-4xl text-2xl m-2">Edit Profile</h2>
           <label className="label" />
           First Name:

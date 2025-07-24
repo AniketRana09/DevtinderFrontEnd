@@ -25,7 +25,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="navbar bg-base-200 shadow-sm ">
+    <div className="navbar bg-base-200 shadow-sm fixed z-10">
       <div className="flex-1 mx-2">
         <Link to="/" className="btn btn-ghost text-2xl">
           DevTinder 💻
@@ -41,7 +41,7 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
+              <div className="w-10 rounded-full ">
                 <img alt="user pf" src={user.photoUrl} />
               </div>
             </div>

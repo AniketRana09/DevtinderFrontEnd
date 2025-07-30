@@ -41,9 +41,9 @@ const Requests = () => {
   if (!request) return;
 
   if (request.length === 0)
-    return <h1 className="text-center pt-20">No Requests Found</h1>;
+    return <h1 className="text-center pt-16">No Requests Found</h1>;
   return (
-    <div className="text-center my-10 pt-20">
+    <div className="text-center  pt-16">
       <h1 className="font-semibold text-3xl">Connection Requests</h1>
       {request.map((requests) => {
         const { _id, firstName, lastName, photoUrl, age, gender, about } =
@@ -68,13 +68,13 @@ const Requests = () => {
             </div>
             <div>
               <button
-                className="btn btn-accent mx-2"
+                className="btn btn-accent mx-2 my-2 md:my-0"
                 onClick={() => reviewRequest("accepted", requests._id)}
               >
                 Accept
               </button>
               <button
-                className="btn btn-error mx-2"
+                className="btn btn-error mx-2 my-2 md:my-0"
                 onClick={() => reviewRequest("rejected", requests._id)}
               >
                 Reject
